@@ -6,10 +6,9 @@ import java.util.List;
 public class CompagineAssurance {
 	private String nom;
 	private List<Personne> clients = new ArrayList<Personne>();
-	
-	CompagineAssurance(String nom, Personne premierClient) {
+
+	CompagineAssurance(String nom) {
 		this.nom = nom;
-		this.clients.add(premierClient);
 	}
 	
 	public int obtenirNombreDeClients() {
@@ -36,6 +35,10 @@ public class CompagineAssurance {
 			}
 		}
 		return nbContratsValide;
+	}
+	
+	public void AjouterUnePersonne(Personne client) {
+		this.clients.add(client);
 	}
 	
 	public String toString() {

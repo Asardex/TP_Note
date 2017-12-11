@@ -1,35 +1,24 @@
 package fr.ensim.quentin.assurance;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Personne {
 	private boolean estUnClient;
 	private String nom;
 	private String prenom;
-	private Date dateDeNaissance;
+	private GregorianCalendar dateDeNaissance;
 	private List<Personne> membreFamille = new ArrayList<Personne>();
 	private List<Contrat> contrats = new ArrayList<Contrat>();
 	
-	Personne(String prenom, String nom, Date dateDeNaissance) {
+	Personne(String prenom, String nom, GregorianCalendar dateDeNaissance) {
 		estUnClient = false;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateDeNaissance = dateDeNaissance;
 		this.membreFamille.clear();
 		this.contrats.clear();
-	}
-	
-	Personne(String prenom, String nom, Date dateDeNaissance, List<Personne> membreFamille) {
-		estUnClient = false;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.dateDeNaissance = dateDeNaissance;
-		this.membreFamille.clear();
-		this.contrats.clear();
-		for(Personne p : membreFamille)
-			this.membreFamille.add(p);
 	}
 	
 	public boolean estClient() {
@@ -40,7 +29,7 @@ public class Personne {
 		return prenom + " " + nom;
 	}
 	
-	public Date obtenirDateDeNaissance() {
+	public GregorianCalendar obtenirDateDeNaissance() {
 		return dateDeNaissance;
 	}
 	
@@ -49,12 +38,18 @@ public class Personne {
 		switch(typeContrat) {
 		case Auto:
 			contrat = new ContratAuto();
+			contrats.add(contrat.creationContrat());
+			estUnClient = true;
 			break;
 		case Prevoyance:
 			contrat = new ContratPrevoyance();
+			contrats.add(contrat.creationContrat());
+			estUnClient = true;
 			break;
 		case MRH:
 			contrat = new ContratMRH();
+			contrats.add(contrat.creationContrat());
+			estUnClient = true;
 			break;
 		default:
 			contrat = null;
