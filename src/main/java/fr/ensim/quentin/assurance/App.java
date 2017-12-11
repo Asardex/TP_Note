@@ -5,72 +5,26 @@ import java.util.Scanner;
 
 public class App 
 {
+	 Scanner sc;
+     String nom, prenom;
+     GregorianCalendar dateNaissance = new GregorianCalendar();
+     boolean continuer = true, continuer2 = true;
+     Personne p;
+     CompagineAssurance compa = new CompagineAssurance("2LB2G");
+
+ 	
     public static void main( String[] args )
-    {
-    	System.out.println( "Hello World!" );
+    {       
+    	App app = new App();
     	
-        Scanner sc;
-        String nom, prenom;
-        GregorianCalendar dateNaissance = new GregorianCalendar();
-        boolean continuer = true, continuer2 = true;
-        Personne p;
-        CompagineAssurance compa = new CompagineAssurance("2LB2G");
+     	System.out.println( "Hello World!" );
         
-        do {
-        	System.out.println("Bonjour, bienvenue chez " + compa + ". Veuillez vous inscrire dans notre liste (-1 pour arrêter) :"
-        			+ "\nDonnez votre prénom :");
-        	sc = new Scanner(System.in);
-        	if(!sc.hasNextInt()) {
-            	prenom = sc.nextLine();
-            	
-            	System.out.println("Bonjour " + prenom + ". Veuillez donner votre nom :");
-            	sc = new Scanner(System.in);
-            	nom = sc.nextLine();
-            	
-            	System.out.println("Vous donnerez votre date de naissance plus tard.");
-            	p = new Personne(prenom, nom, dateNaissance);
-            	compa.AjouterUnePersonne(p);
-            	
-            	do {
-            		System.out.println("Voulez vous souscrire à un nouveau contrat ? (-1 pour dire non)");
-                	sc = new Scanner(System.in);
-                	if(!sc.hasNextInt()) {
-                		do {
-                			System.out.println("A quel type de contrat voulez vous soucrire ? (0:auto, 1:prevoyance, 2: MRH)");
-                			sc = new Scanner(System.in);
-                		}while(!sc.hasNextInt());
-                		switch(sc.nextInt()) {
-                		case 0:
-                			p.creerContrat(TypeContrat.Auto);
-                			break;
-                		case 1:
-                			p.creerContrat(TypeContrat.Prevoyance);
-                			break;
-                		case 2:
-                			p.creerContrat(TypeContrat.MRH);
-                			break;
-            			default:
-            				System.out.println("Aucun contract de créé.");
-            				break;
-                		}
-                	}else {
-                		if(sc.nextInt() == -1)
-                			continuer2 = false;
-                	}
-            	}while(continuer2);
-        	}
-        	else {
-        		if(sc.nextInt() == -1)
-        			continuer = false;
-        	}
-        }while(continuer);
+        app.demanderPersonne();
         
-        sc.close();
-        
-        System.out.println("La compagnie d'assurance " + compa + " a actuellement " 
-        		+ compa.obtenirNombreDeClients() + " clients, dont " 
-        		+ compa.obtenirNombreDeContrats() + " contrats valides, ainsi que " 
-        		+ compa.obtenirNombreDeProspects() + " clients en prospection.");
+        System.out.println("La compagnie d'assurance " + app.compa + " a actuellement " 
+        		+ app.compa.obtenirNombreDeClients() + " clients, dont " 
+        		+ app.compa.obtenirNombreDeContrats() + " contrats valides, ainsi que " 
+        		+ app.compa.obtenirNombreDeProspects() + " clients en prospection.");
         
         
     	System.out.println( "See you soon!" );
@@ -114,4 +68,64 @@ public class App
         
         System.out.println( "See you soon!" );*/
     }
+
+
+	private void demanderPersonne() {
+		do {
+    	System.out.println("Bonjour, bienvenue chez " + compa + ". Veuillez vous inscrire dans notre liste (-1 pour arrêter) :"
+    			+ "\nDonnez votre prénom :");
+    	sc = new Scanner(System.in);
+    	if(!sc.hasNextInt()) {
+        	prenom = sc.nextLine();
+        	
+        	System.out.println("Bonjour " + prenom + ". Veuillez donner votre nom :");
+        	sc = new Scanner(System.in);
+        	nom = sc.nextLine();
+        	
+        	System.out.println("Vous donnerez votre date de naissance plus tard.");
+        	p = new Personne(prenom, nom, dateNaissance);
+        	compa.AjouterUnePersonne(p);
+        	
+        	demanderContrat();
+    	}
+    	else {
+    		if(sc.nextInt() == -1)
+    			continuer = false;
+    	}
+    }while(continuer);
+    
+    sc.close();
+		
+	}
+
+
+	private void demanderContrat() {do {
+		System.out.println("Voulez vous souscrire à un nouveau contrat ? (-1 pour dire non)");
+    	sc = new Scanner(System.in);
+    	if(!sc.hasNextInt()) {
+    		do {
+    			System.out.println("A quel type de contrat voulez vous soucrire ? (0:auto, 1:prevoyance, 2: MRH)");
+    			sc = new Scanner(System.in);
+    		}while(!sc.hasNextInt());
+    		switch(sc.nextInt()) {
+    		case 0:
+    			p.creerContrat(TypeContrat.Auto);
+    			break;
+    		case 1:
+    			p.creerContrat(TypeContrat.Prevoyance);
+    			break;
+    		case 2:
+    			p.creerContrat(TypeContrat.MRH);
+    			break;
+			default:
+				System.out.println("Aucun contract de créé.");
+				break;
+    		}
+    	}else {
+    		if(sc.nextInt() == -1)
+    			continuer2 = false;
+    	}
+	}while(continuer2);
+		
+	}
 }
