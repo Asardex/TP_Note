@@ -33,7 +33,7 @@ public class ContratPrevoyance extends Contrat {
 
 	@Override
 	public String toString() {
-		return "Contrat Prevoyance";
+		return "Contrat " + numeroContrat;
 	}
 
 }

@@ -33,6 +33,6 @@ public class ContratAuto extends Contrat {
 
 	@Override
 	public String toString() {
-		return "Contrat Auto";
+		return "Contrat " + numeroContrat;
 	}
 }

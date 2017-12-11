@@ -34,7 +34,7 @@ public class ContratMRH extends Contrat {
 
 	@Override
 	public String toString() {
-		return "Contrat MRH";
+		return "Contrat " + numeroContrat;
 	}
 
 }

@@ -41,6 +41,10 @@ public class CompagineAssurance {
 		this.clients.add(client);
 	}
 	
+	public Personne GetPersonne(int i) {
+		return clients.get(i);
+	}
+	
 	public String toString() {
 		return nom;
 	}
